@@ -1,93 +1,83 @@
-import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { ChevronDown, CalendarCheck } from "lucide-react";
-import Image from "next/image";
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finhead - Werde CEO deiner Finanzen</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+            text-align: center;
+        }
+        header {
+            background: black;
+            color: white;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        section {
+            padding: 60px 20px;
+            margin-top: 80px;
+        }
+        .hero {
+            background: linear-gradient(to bottom, black, gray);
+            color: white;
+            padding: 100px 20px;
+        }
+        .card {
+            background: #222;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(255, 255, 255, 0.1);
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #e91e63;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
-const Leistungen = [
-  {
-    title: "Personenversicherungen",
-    details: "Absicherung für Gesundheit, Leben und Altersvorsorge.",
-  },
-  {
-    title: "Sachversicherungen",
-    details: "Schutz für dein Hab und Gut: Hausrat, Haftpflicht, Kfz und mehr.",
-  },
-  {
-    title: "Finanzielle Bildung",
-    details: "Lerne, wie du deine Finanzen optimierst und bessere Entscheidungen triffst.",
-  },
-];
+    <header>
+        <h1>Finhead</h1>
+    </header>
 
-export default function HomePage() {
-  const [expanded, setExpanded] = useState(null);
-  const [news, setNews] = useState([]);
+    <section class="hero">
+        <h1>Werde CEO deiner Finanzen</h1>
+        <p>Verstehe deine Finanzen und gestalte deine Zukunft!</p>
+    </section>
 
-  useEffect(() => {
-    fetch("https://newsapi.org/v2/top-headlines?category=business&language=de&apiKey=YOUR_NEWS_API_KEY")
-      .then((response) => response.json())
-      .then((data) => setNews(data.articles.slice(0, 5)));
-  }, []);
+    <section>
+        <h2 style="color: #e91e63;">Transparenz & Vertrauen</h2>
+        <p>Wir bieten dir Wissen und Konzepte, um deine Finanzen selbst in die Hand zu nehmen.</p>
+    </section>
 
-  return (
-    <div className="flex flex-col items-center text-center font-[Futura] bg-black text-white">
-      {/* Header */}
-      <header className="fixed top-0 left-0 w-full bg-black text-white p-6 shadow-lg flex justify-between items-center z-50">
-        <Image src="/images/logo.png" alt="Finhead Logo" width={160} height={60} />
-      </header>
-      
-      {/* Hero Section */}
-      <section className="h-screen flex flex-col justify-center items-center bg-gradient-to-b from-black to-gray-800 text-white w-full p-8 text-center">
-        <h1 className="text-6xl font-extrabold text-turquoise-500">Werde CEO deiner Finanzen</h1>
-        <p className="mt-6 text-xl">Verstehe deine Finanzen und gestalte deine Zukunft!</p>
-      </section>
-      
-      {/* Vertrauen aufbauen */}
-      <section className="w-full p-12 bg-gray-900 text-center rounded-lg shadow-md max-w-4xl mx-auto mt-10 text-white">
-        <h2 className="text-3xl font-bold text-pink-500">Transparenz & Vertrauen</h2>
-        <p className="mt-4 text-gray-300">Wir bieten dir Wissen und Konzepte, um deine Finanzen selbst in die Hand zu nehmen.</p>
-      </section>
-      
-      {/* Leistungen */}
-      <section className="w-full p-12 bg-gray-800 text-center mt-10 text-white">
-        <h2 className="text-3xl font-bold text-turquoise-400">Unsere Leistungen</h2>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {Leistungen.map((leistung, index) => (
-            <Card key={index} className="p-6 cursor-pointer bg-gray-700 text-white shadow-md hover:shadow-xl transition-all duration-300" onClick={() => setExpanded(expanded === index ? null : index)}>
-              <CardContent>
-                <div className="flex justify-between items-center">
-                  <h3 className="text-lg font-semibold">{leistung.title}</h3>
-                  <ChevronDown size={20} />
-                </div>
-                {expanded === index && <p className="mt-2 text-gray-400">{leistung.details}</p>}
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-      
-      {/* Finanznews */}
-      <section className="w-full p-12 bg-gray-900 text-center mt-10 text-white">
-        <h2 className="text-3xl font-bold text-pink-400">Aktuelle Finanznews</h2>
-        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {news.map((article, index) => (
-            <a key={index} href={article.url} target="_blank" rel="noopener noreferrer" className="p-4 bg-gray-700 rounded-md shadow-sm hover:shadow-md transition-all">
-              <h3 className="text-lg font-semibold">{article.title}</h3>
-              <p className="text-sm mt-2 text-gray-400">{article.source.name}</p>
-            </a>
-          ))}
-        </div>
-      </section>
-      
-      {/* Terminbuchung */}
-      <section className="w-full p-12 bg-gray-800 text-center mt-10 text-white">
-        <h2 className="text-3xl font-bold text-turquoise-400">Buche einen Termin</h2>
-        <p className="mt-2 text-gray-300">Plane jetzt dein persönliches Beratungsgespräch.</p>
-        <a href="https://outlook.office365.com/owa/calendar/MicrosoftBookings@yourcompany.com/bookings/" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex items-center px-6 py-3 bg-pink-600 text-white rounded-lg shadow-md hover:bg-pink-700 transition-all">
-          <CalendarCheck className="mr-2" /> Termin buchen
-        </a>
-      </section>
-    </div>
-  );
-}
+    <section>
+        <h2 style="color: #00bcd4;">Unsere Leistungen</h2>
+        <div class="card">Personenversicherungen - Absicherung für Gesundheit, Leben und Altersvorsorge.</div>
+        <div class="card">Sachversicherungen - Schutz für dein Hab und Gut: Hausrat, Haftpflicht, Kfz und mehr.</div>
+        <div class="card">Finanzielle Bildung - Lerne, wie du deine Finanzen optimierst und bessere Entscheidungen triffst.</div>
+    </section>
+
+    <section>
+        <h2 style="color: #e91e63;">Buche einen Termin</h2>
+        <p>Plane jetzt dein persönliches Beratungsgespräch.</p>
+        <a href="https://outlook.office365.com/owa/calendar/MicrosoftBookings@yourcompany.com/bookings/" class="button" target="_blank">Termin buchen</a>
+    </section>
+
+</body>
+</html>
